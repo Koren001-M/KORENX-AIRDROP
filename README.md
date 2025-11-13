@@ -1,66 +1,118 @@
-## Foundry
+# KorenX Token Airdrop System
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A secure ERC20 token distribution system with whitelist-based claiming mechanism.
 
-Foundry consists of:
+## 🎯 Features
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- **ERC20 Token** - Fixed supply of 1,000,000 tokens
+- **Whitelist-based Distribution** - Owner controls recipient list
+- **User-initiated Claims** - Gas-efficient claiming mechanism
+- **Time-bound Airdrops** - Configurable claim windows
+- **Emergency Controls** - Pausable functionality
+- **Comprehensive Testing** - 49 unit tests with 100% pass rate
 
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
+## 📊 Project Structure
+```
+├── src/
+│   ├── KorenX.sol      # ERC20 Token Contract
+│   └── Airdrop.sol     # Distribution Contract
+├── test/
+│   ├── KorenX.t.sol    # Token Tests (18 tests)
+│   └── Airdrop.t.sol   # Airdrop Tests (31 tests)
+├── script/
+│   ├── DeployKorenX.s.sol        # Deployment script
+│   ├── SetupWhitelist.s.sol      # Whitelist configuration
+│   └── StartAirdrop.s.sol        # Airdrop activation
+└── lib/                # Dependencies (OpenZeppelin, Forge)
 ```
 
-### Test
+## 🧪 Testing
+```bash
+# Run all tests
+forge test
 
-```shell
-$ forge test
+# Run with verbose output
+forge test -vvv
+
+# Run with gas report
+forge test --gas-report
+
+# Run coverage
+forge coverage
 ```
 
-### Format
+**Test Results:**
+- Total Tests: 49
+- Passed: 49 ✅
+- Failed: 0 ❌
 
-```shell
-$ forge fmt
+## 🚀 Deployment
+
+### Local Deployment (Anvil)
+```bash
+# Terminal 1: Start Anvil
+anvil
+
+# Terminal 2: Deploy
+export PRIVATE_KEY=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+export RPC_URL=http://127.0.0.1:8545
+
+forge script script/DeployKorenX.s.sol:DeployKorenX --rpc-url $RPC_URL --broadcast
 ```
 
-### Gas Snapshots
+### Testnet Deployment
+```bash
+# Set environment variables
+export PRIVATE_KEY=your_private_key
+export RPC_URL=your_sepolia_rpc_url
 
-```shell
-$ forge snapshot
+# Deploy contracts
+forge script script/DeployKorenX.s.sol:DeployKorenX --rpc-url $RPC_URL --broadcast --verify
 ```
 
-### Anvil
+## 🔒 Security Features
 
-```shell
-$ anvil
-```
+- ✅ OpenZeppelin audited libraries
+- ✅ Reentrancy protection (SafeERC20)
+- ✅ Access control (Ownable)
+- ✅ Double-claim prevention
+- ✅ Input validation
+- ✅ Pausable mechanism
 
-### Deploy
+## 📖 Contracts
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+### KorenX Token
+- Standard ERC20 implementation
+- Fixed supply: 1,000,000 tokens
+- 18 decimals
+- Owner-controlled airdrop integration
 
-### Cast
+### Airdrop Contract
+- Whitelist management
+- Claim validation
+- Time-bound distributions
+- Token recovery after expiry
 
-```shell
-$ cast <subcommand>
-```
+## 🛠️ Technology Stack
 
-### Help
+- **Solidity** 0.8.30
+- **Foundry** - Development framework
+- **OpenZeppelin** - Security libraries
+- **Anvil** - Local testing
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+## 📄 License
+
+MIT
+
+## 👨‍💻 Author
+
+[Your Name]
+
+## 🔗 Deployed Contracts
+
+**Local (Anvil):**
+- Token: `0x5FbDB2315678afecb367f032d93F642f64180aa3`
+- Airdrop: `0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512`
+
+**Testnet (Sepolia):**
+- Coming soon...
